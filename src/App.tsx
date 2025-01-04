@@ -8,7 +8,6 @@ import axios from "axios";
 import { getDataFromLocalStroage, setDataToLocalStroage } from "./utils";
 import Loading from "./Loading";
 const defaultContent = ``;
-const defaultFooter = "鲁迅";
 const API_URL = import.meta.env.VITE__API_URL__;
 const API_KEY = import.meta.env.VITE__API_KEY__;
 
@@ -16,9 +15,13 @@ const STROAGE_AUTHORS = "STROAGE_AUTHORS";
 
 function App() {
     const [content, setContent] = useState(defaultContent);
-    const [author, setAuthor] = useState(defaultFooter);
+    const [author, setAuthor] = useState("");
     const [result, setResult] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showAvatar, setShowAvatar] = useState(() => {
+        const val = getDataFromLocalStroage("SHOW_AVATAR");
+        return val === "true" ? true : false;
+    });
     const [authors, setAuthors] = useState(() => {
         const authors =
             getDataFromLocalStroage(STROAGE_AUTHORS).split(",") || [];
@@ -26,6 +29,12 @@ function App() {
     });
 
     const onDownload = () => {
+        if (content.length === 0) {
+            return alert("请输入内容");
+        }
+        if (author.length === 0) {
+            return alert("请输入作家名");
+        }
         toPng(document.querySelector(".card") as HTMLElement)
             .then((dataUrl) => {
                 const filename = window.prompt("请输入文件名", `${author}.png`);
@@ -75,7 +84,12 @@ function App() {
     return (
         <div className="app">
             {loading && <Loading />}
-            <Card content={result} footer={author} />
+            <Card
+                showAvatar={showAvatar}
+                origionalContent={content}
+                content={result}
+                footer={author}
+            />
             <div className="textarea-container">
                 <textarea
                     className="textarea"
@@ -116,6 +130,24 @@ function App() {
                             setAuthor(e.target.value);
                         }}
                     />
+
+                    <label htmlFor="showAvatar">
+                        <input
+                            type="checkbox"
+                            name="showAvatar"
+                            id="showAvatar"
+                            checked={showAvatar}
+                            onChange={(e) => {
+                                setShowAvatar(e.target.checked);
+
+                                setDataToLocalStroage(
+                                    "SHOW_AVATAR",
+                                    `${e.target.checked}`,
+                                );
+                            }}
+                        />
+                        开启头像
+                    </label>
                 </div>
             </div>
             <button className="generate-button" onClick={onGenerate}>

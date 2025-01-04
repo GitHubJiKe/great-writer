@@ -4,7 +4,7 @@
     border-radius: 1rem;
     box-shadow: 0 0 0.8rem 0 rgba(0, 0, 0, 0.1);
     width: var(--max-width);
-    min-height: 20rem;
+    min-height: 16rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -26,6 +26,22 @@
     line-height: 1.5;
     letter-spacing: 0.05rem;
     white-space: pre-wrap;
+    text-indent: 2.4em;
+    margin-top: 1rem;
+}
+
+.card .origional-content {
+    margin-top: 1rem;
+    text-align: left;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.4);
+    line-height: 1.5;
+    letter-spacing: 0.05rem;
+    white-space: pre-wrap;
+}
+
+.card .origional-content::before {
+    content: "原文：";
 }
 
 .card .content::first-letter {
@@ -51,4 +67,16 @@
     font-weight: 500;
     position: relative;
     right: -1.5rem;
+}
+
+.card .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px dashed rgba(0, 0, 0, 0.4);
+    cursor: pointer;
 }
