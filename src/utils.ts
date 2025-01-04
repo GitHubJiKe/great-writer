@@ -15,8 +15,8 @@ const DEEPSEEK_URL = "https://api.deepseek.com/chat/completions";
 const GOOGLE_URL =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
-const DEEPSEEK_API_KEY = import.meta.env.VITE__DEEPSEEK_API_KEY__;
-const API_KEY = import.meta.env.VITE__API_KEY__;
+const DEEPSEEK_API_KEY = "sk-7254a2cefbe74efc9ffd41a1ee150574";
+const API_KEY = "AIzaSyAeGlCtRCNnck2UFyeCZrP1uf87onftjCg";
 
 export function aiRequest(
     type: "google" | "deepseek",
